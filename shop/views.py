@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from.models import Category, Product
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
-def prod_list(request, category_id=None):
+def prod_list(request, category_name=None):
     category = None
     products = Product.objects.filter(available=True)
 
-    if category_id:
-        category = get_object_or_404(Category, id=category_id)
+    if category_name:
+        category = get_object_or_404(Category, slug=category_name)
         products = Product.objects.filter(category=category, available=True)
 
     paginator = Paginator(products, 6)
@@ -22,6 +22,10 @@ def prod_list(request, category_id=None):
     
     return render(request, 'shop/category.html', {'category':category, 'prods':products})
     
+
+def cat_list(request):
+    categories = Category.objects.all()
+    return render(request, 'shop/categories.html', {'category':categories})
 
 def product_detail(request, category_id, product_id):
     product = get_object_or_404(Product, category_id=category_id, id=product_id)
