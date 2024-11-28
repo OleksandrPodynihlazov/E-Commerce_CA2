@@ -9,7 +9,7 @@
 ## Usernames and Passwords:
 | Username | Password | Role  |
 |:--------:|:--------:|:-----:|
-| admin    | admin    | Admin |
+| admin    | admin    | SuperUser |
 | user     | user     | User  |
 
 ## Assignment Development Breakdown:
@@ -18,5 +18,5 @@
   - 2
 
 - [Dmytro Zubal](https://github.com/dmytrozubal)
-  - 3
+  - Shop app
   - 4
