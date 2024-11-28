@@ -19,7 +19,7 @@
     {% if category %}
         <div class="row my_row_class">
             <div class="mx-auto">
-                <p><a href="">Our Product Collection</a> | {{category.name}}</p>
+                <p><a href="{% url 'shop:cat_list' %}">Home</a> > {{category.name}}</p>
             </div>
         </div>
     {% endif %}
@@ -36,24 +36,14 @@
         {% comment %} <img class="my_image my_image_padding" src="" alt="Our Products Collection"> {% endcomment %}
     </div>
     <br>
-    <div>
-        <h1 class="text-center my_title" >Our Products Collection</h1>
-        <p class="text-justify">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur at suscipit facere modi perferendis voluptas accusantium totam pariatur, explicabo impedit voluptate, necessitatibus ratione ad quae debitis porro blanditiis nulla vitae.
-            Assumenda corporis reprehenderit velit ipsam doloremque quidem totam harum, ducimus perferendis possimus a id iure pariatur? Optio eaque sed eius quo fugit delectus maxime saepe. Excepturi commodi facere beatae aperiam.
-            Ab, vitae saepe. Officia, cum fugiat eaque illum tempore unde sunt, sequi aliquid ipsum id, eum ad nihil fugit doloribus deleniti praesentium blanditiis asperiores ducimus itaque ab animi. Odit, unde?
-            Dolorem numquam consequuntur tenetur voluptatum placeat fugit dicta laudantium accusamus reprehenderit facere aperiam labore, id ducimus deserunt esse animi nulla beatae voluptate quos? Explicabo, repellendus atque. Perspiciatis libero nisi hic.
-            Amet, ea asperiores, ab distinctio non reiciendis nostrum corporis dolorem perferendis nulla qui, iusto voluptatum adipisci rem voluptas optio praesentium provident repudiandae velit exercitationem molestias aliquid modi illo. Fuga, minus!
-        </p>
-    </div>
     {% endif %}
     <div class="container">
         <div class="row mx-auto">
             {% for product in prods %}
                 <div class="my_bottom_margin col-9 col-lg-4 col-sm-12 col-md-4">
                     <div class="card text-center" style="min-width:18rem;">
-                        <a class ="img" href=""><img class="card-img-top      
-                          my_image"src="" alt="{{product.name}}"></a>
+                        <a class="img" href=""><img class="card-img-top      
+                          my_image"src="{{product.image.url}}" alt="{{product.name}}"></a>
                         <div class="card-body">
                             <h4>{{product.name}}</h4>
                             <p>€{{product.price}}</p>

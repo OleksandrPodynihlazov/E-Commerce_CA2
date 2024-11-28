@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Automated Irrigation Systems
+{% endblock %}
+{% block content %}
+    <div class="row my_prod_row_class">
+        {% comment %} <div class="mx-auto">
+            <p><a href="">Home</a> | <a href="">{{product.category}}</a> | 
+            {{product.name}}</p>
+        </div> {% endcomment %}
+        <div class="container">
+            <div>
+                <h1 class="text-center my_title" >Our Products Collection</h1>
+                <p class="text-justify">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur at suscipit facere modi perferendis voluptas accusantium totam pariatur, explicabo impedit voluptate, necessitatibus ratione ad quae debitis porro blanditiis nulla vitae.
+                    Assumenda corporis reprehenderit velit ipsam doloremque quidem totam harum, ducimus perferendis possimus a id iure pariatur? Optio eaque sed eius quo fugit delectus maxime saepe. Excepturi commodi facere beatae aperiam.
+                    Ab, vitae saepe. Officia, cum fugiat eaque illum tempore unde sunt, sequi aliquid ipsum id, eum ad nihil fugit doloribus deleniti praesentium blanditiis asperiores ducimus itaque ab animi. Odit, unde?
+                    Dolorem numquam consequuntur tenetur voluptatum placeat fugit dicta laudantium accusamus reprehenderit facere aperiam labore, id ducimus deserunt esse animi nulla beatae voluptate quos? Explicabo, repellendus atque. Perspiciatis libero nisi hic.
+                    Amet, ea asperiores, ab distinctio non reiciendis nostrum corporis dolorem perferendis nulla qui, iusto voluptatum adipisci rem voluptas optio praesentium provident repudiandae velit exercitationem molestias aliquid modi illo. Fuga, minus!
+                </p>
+            </div>
+            <br>
+            <div class="row">
+                {% for cat in category %}
+                    <div class="my_bottom_margin col-9 col-lg-4 col-sm-12 col-md-4">
+                        <div class="card text-center" style="min-width:18rem;">
+                            <a class="img" href="{% url 'shop:products_by_category' cat.slug %}">
+                                <div class="image-container">
+                                    <img class="card-img-top my_image dimmed-image fixed-size-image" src="{{ cat.image.url }}" alt="{{ cat.name }}">
+                                    <div class="overlay">
+                                        <div class="text">{{ cat.name }}</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
