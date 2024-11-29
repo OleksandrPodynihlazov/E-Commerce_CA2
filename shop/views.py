@@ -27,6 +27,6 @@ def cat_list(request):
     categories = Category.objects.all()
     return render(request, 'shop/categories.html', {'category':categories})
 
-def product_detail(request, category_id, product_id):
-    product = get_object_or_404(Product, category_id=category_id, id=product_id)
+def product_detail(request, category_name, product_id):
+    product = get_object_or_404(Product, id=product_id)
     return render(request, 'shop/product.html', {'product':product})
