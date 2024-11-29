@@ -14,10 +14,9 @@ all.min.css">
 </head>
 <body>
     <div class="container-fluid">
-      <div class="container-fluid bg-light navbar-fixed-top my_top_navbar_div">
-        {% include 'top-navbar.html' %}
+      <div class="container-fluid bg-light navbar-fixed-top">
+        {% comment %} {% include 'top-navbar.html' %} {% endcomment %}
       </div> 
-      {% include 'header.html' %}
       {% include 'navbar.html' %}
       {% block content %}
       {% endblock %}
