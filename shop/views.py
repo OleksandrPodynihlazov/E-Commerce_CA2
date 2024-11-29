@@ -25,6 +25,7 @@ def prod_list(request, category_name=None):
 
 def cat_list(request):
     categories = Category.objects.all()
+    categories = sorted(categories, key=lambda x: len(x.name))
     return render(request, 'shop/categories.html', {'category':categories})
 
 def product_detail(request, category_name, product_id):
