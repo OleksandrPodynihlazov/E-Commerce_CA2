@@ -14,9 +14,32 @@
 
 ## Assignment Development Breakdown:
 - [Oleksandr Podynihlazov](https://github.com/OleksandrPodynihlazov)
-  - 1
-  - 2
+  - Accounts
+  - ...
 
 - [Dmytro Zubal](https://github.com/dmytrozubal)
   - Shop app
-  - 4
+  - ...
+
+# Deelopment notes:
+### Init:
+```bash
+python3 -m venv env
+source env/bin/activate   # For Linux
+env\Scripts\activate      # For Windows
+
+pip install -r requirements.txt
+
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Load database:
+```bash
+python manage.py loaddata data.json
+```
+
+### Dump database:
+```bash
+python manage.py dumpdata --natural-foreign --natural-primary > data.json
+```

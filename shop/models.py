@@ -56,8 +56,10 @@ class Product(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
-        editable=False)
+        editable=False
+    )
     name = models.CharField(max_length=250, unique=True)
+    brand = models.CharField(max_length=250)
     description = models.TextField(blank = True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     control_mechanism = models.ForeignKey(ControlMechanism, on_delete=models.CASCADE)
