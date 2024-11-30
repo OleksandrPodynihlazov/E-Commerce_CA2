@@ -178,3 +178,11 @@
 .card-img-top {
     border-radius: 1rem !important;
 }
+
+.footer {
+    padding: 1rem;
+}
+
+.footer .text-center {
+    margin-bottom: 0 !important;
+}
