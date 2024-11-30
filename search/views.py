@@ -1,8 +1,6 @@
 from shop.models import Product, Category, Brand, ControlMechanism
-from django.views.generic import ListView
-from django.db.models import Q
 from django.shortcuts import render
-from django.contrib.postgres.search import SearchVector
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 
 # class SearchResultsListView(ListView):
@@ -55,6 +53,17 @@ def search(request):
     categories = Category.objects.all()
     categories = categories.exclude(name='All')
 
+    products = qs
+    paginator = Paginator(products, 16)
+    try:
+        page = int(request.GET.get('page', '1'))
+    except:
+        page = 1
+    try:
+        products = paginator.page(page)
+    except(EmptyPage, InvalidPage):
+        products = paginator.page(paginator.num_pages)
+    
     context = {
         'queryset': qs,
         'categories': categories,
@@ -63,4 +72,5 @@ def search(request):
         'lower_price': lower_price,
         'upper_price': upper_price
     }
-    return render(request, 'search.html', context)
+    
+    return render(request, 'search.html', {'prods':products, 'context':context})

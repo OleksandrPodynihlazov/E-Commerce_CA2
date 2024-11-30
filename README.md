@@ -22,6 +22,7 @@
   - Shop app
   - Products database population
   - Search app
+  - Cart app
   - ...
 
 # Deelopment notes:

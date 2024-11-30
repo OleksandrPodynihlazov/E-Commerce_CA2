@@ -17,15 +17,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Your Cart</a>
+            <a class="nav-link text-light" href="{% url 'cart:cart_detail' %}">
+                  <i class="fas fa-shopping-cart"> ( {{item_count}} )</i>
+            </a>
           </li>
-          {% comment %} {% if item_count > 0 %}
-            <li class="nav-item">
-              <a href="{% url 'cart:cart_detail' %}" class="nav-link">
-                <i class="fas fa-shopping-cart">({{item_count}})</i>
-              </a>
-            </li>
-          {% endif %}     {% endcomment %}
         </ul>
         <form class="d-flex search" action="{% url 'search:searchResult' %}" method="get">
           <input class="form-control me-2 bg-dark text-light" type="search" placeholder="Search" aria-label="Search" name="name">

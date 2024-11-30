@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'search',
+    'cart',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -67,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.menu_links',
+                'cart.context_processors.counter',
             ],
         },
     },
@@ -137,3 +139,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+STRIPE_SECRET_KEY = 'sk_test_51LxFLJIR55PUH4EAorGv70V00xPsSD1BkYKnBHewKxUwILy3ngT5IL0NzfFMgwTlGB2TLJDtWaWaMfKBzx5M2tpH00CvexXPYX'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51LxFLJIR55PUH4EAlXZYMUbPSDN7anaTaIT8WC2tM0oCW5ZWE5CoTMQg2dXfTotjlt2NXtAlufEgBUsPHJXIOXUJ00ETvQ5jgV'
