@@ -14,11 +14,13 @@
 
 ## Assignment Development Breakdown:
 - [Oleksandr Podynihlazov](https://github.com/OleksandrPodynihlazov)
+  - Data scraping for products
   - Accounts
   - ...
 
 - [Dmytro Zubal](https://github.com/dmytrozubal)
   - Shop app
+  - Products database population
   - ...
 
 # Deelopment notes:
