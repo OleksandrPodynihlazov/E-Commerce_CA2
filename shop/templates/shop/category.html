@@ -8,11 +8,7 @@
     {% endif %}
 {% endblock %}
 {% block title %}
-    {% if category %}
-        {{ category.name }} - Automated Irrigation Systems
-    {% else %}
-        Our Products Collection - Automated Irrigation Systems
-    {% endif %}
+    {{ category.name }} - Automated Irrigation Systems
 {% endblock %}
 {% block content %}
     <!--Breadcrumb navigation-->
@@ -35,7 +31,11 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card text-center fixed-size-card">
                         <a class="img" href="{% url 'shop:product_detail' product.category.slug product.id %}">
-                            <img class="card-img-top fixed-size-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% if product.image %}
+                                <img class="card-img-top fixed-size-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img class="card-img-top fixed-size-image" src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
+                            {% endif %}
                         </a>
                         <div class="card-body">
                             <h4>{{ product.name }}</h4>
@@ -49,9 +49,27 @@
             {% if prods.paginator.num_pages > 1 %}
                 <hr>
                 <div class="text-center">
+                    {% comment %} Improved page navigation {% endcomment %}
+                    {% comment %} https://docs.djangoproject.com/en/5.1/topics/pagination/ {% endcomment %}
+                    {% if prods.has_previous %}
+                        <a href="?page=1" class="btn btn-light btn-sm"><<</a>
+                    {% endif %}
+
+                    {% if prods.has_previous %}
+                        <a href="?page={{ prods.previous_page_number }}" class="btn btn-light btn-sm"><</a>
+                    {% endif %}
+
                     {% for pg in prods.paginator.page_range %}
-                        <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %}active{% endif%}">{{pg}}</a>
+                        <a href="?page={{ pg }}" class="btn btn-light btn-sm {% if prods.number == pg %}active{% endif %}">{{ pg }}</a>
                     {% endfor %}
+
+                    {% if prods.has_next %}
+                        <a href="?page={{ prods.next_page_number }}" class="btn btn-light btn-sm">></a>
+                    {% endif %}
+
+                    {% if prods.has_next %}
+                        <a href="?page={{ prods.paginator.num_pages }}" class="btn btn-light btn-sm">>></a>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
