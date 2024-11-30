@@ -11,14 +11,13 @@ Automated Irrigation Systems
     </header>
     <div class="row content">
         <div class="container">
-            <br>
             <div class="row">
                 {% for cat in category %}
-                    <div class="col-9 col-lg-4 col-sm-12 col-md-4">
+                    <div class="col-9 col-lg-4 col-sm-12 col-md-4 my-2">
                         <div class="card text-center" style="min-width:5rem;">
                             <a class="img" href="{% url 'shop:products_by_category' cat.slug %}">
                                 <div class="image-container">
-                                    <img class="card-img-top my_image dimmed-image fixed-size-image" src="{{ cat.image.url }}" alt="{{ cat.name }}">
+                                    <img class="card-img-top dimmed-image fixed-size-image" src="{{ cat.image.url }}" alt="{{ cat.name }}">
                                     <div class="overlay">
                                         <div class="text">{{ cat.name }}</div>
                                     </div>

@@ -1,3 +1,14 @@
 env/
 db.sqlite3
+
 shop/migrations/*_*.py
+shop/migrations/__pycache__/
+shop/__pycache__/
+
+search/migrations/*_*.py
+search/migrations/__pycache__/
+search/__pycache__/
+
+cart/migrations/*_*.py
+cart/migrations/__pycache__/
+cart/__pycache__/

@@ -21,7 +21,11 @@
     {% endif %} {% endcomment %}
     <header>
         <div class="d-flex justify-content-center align-items-center logo-img cat-img" style="background-image: url('{{ category.image.url }}');">
-            <h1 class="text-center overlay-text">{{category.name}}</h1>
+            {% if category.name == 'All' %}
+                <h1 class="text-center overlay-text">All products</h1>
+            {% else %}
+                <h1 class="text-center overlay-text">{{ category.name }}</h1>
+            {% endif %}
         </div>
     </header>
     <br><br>
@@ -29,7 +33,7 @@
         <div class="row mx-auto my-auto">
             {% for product in prods %}
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                    <div class="card text-center fixed-size-card">
+                    <div class="card text-center fixed-size-card" style="max-height: 25rem;">
                         <a class="img" href="{% url 'shop:product_detail' product.category.slug product.id %}">
                             {% if product.image %}
                                 <img class="card-img-top fixed-size-image" src="{{ product.image.url }}" alt="{{ product.name }}">
@@ -37,8 +41,8 @@
                                 <img class="card-img-top fixed-size-image" src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
                             {% endif %}
                         </a>
-                        <div class="card-body">
-                            <h4>{{ product.name }}</h4>
+                        <div class="card-body" style="text-wrap: nowrap; overflow: hidden;">
+                            <h4>{{ product.name|truncatechars:30 }}</h4>
                             <p>€{{ product.price }}</p>
                         </div>
                     </div>
