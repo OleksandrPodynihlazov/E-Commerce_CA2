@@ -8,7 +8,8 @@ def prod_list(request, category_name=None):
 
     if category_name:
         category = get_object_or_404(Category, slug=category_name)
-        products = Product.objects.filter(category=category, available=True)
+        if category_name != 'all':
+            products = Product.objects.filter(category=category, available=True)
 
     paginator = Paginator(products, 16)
     try:

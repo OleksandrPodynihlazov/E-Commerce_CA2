@@ -25,7 +25,6 @@
     left: 0 !important;
 }
 
-
 .logo-img, .description-img {
     position: relative;
     background-image: url('/static/images/bg.jpg');
@@ -99,7 +98,12 @@
 }
 
 .search {
-    padding-right: 1rem;
+    padding-right: 2rem;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important;
 }
 
 .card-img-top {
@@ -164,9 +168,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     border: none;
-    border-radius: 10px;
+    border-radius: 1rem !important;
 }
 
 .card:hover {
     transform: translateY(-5px);
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
 }

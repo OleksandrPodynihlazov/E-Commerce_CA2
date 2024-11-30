@@ -24,7 +24,7 @@ Search - AIS
                 <label for="maxPrice">Max Price:</label>
                 <input type="number" min="{{ lower_price }}" max="{{ upper_price }}" class="form-control" id="maxPrice" placeholder="{{ upper_price }}" name="maxPrice" value="{{ request.GET.maxPrice }}">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="category">Category:</label>
                 <select id="category" class="form-control" name="category">
                     <option value="">Show All</option>
@@ -33,12 +33,21 @@ Search - AIS
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="brand">Brand:</label>
                 <select id="brand" class="form-control" name="brand">
                     <option value="">Show All</option>
                     {% for brand in brands %}
                         <option value="{{ brand.name }}" {% if request.GET.brand == brand.name %}selected{% endif %}>{{ brand }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="control">Control:</label>
+                <select id="control" class="form-control" name="control">
+                    <option value="">Show All</option>
+                    {% for control in controls %}
+                        <option value="{{ control.name }}" {% if request.GET.control == control.name %}selected{% endif %}>{{ control }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -52,7 +61,7 @@ Search - AIS
     <div class="row mx-auto">
         {% for product in queryset %}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="card text-center" style="min-width: 18rem">
+            <div class="card text-center fixed-size-card" style="max-height: 25rem;">
                 <a href="{{product.get_absolute_url}}">
                     {% if product.image %}
                         <img class="card-img-top" src="{{product.image.url}}" alt="{{product.name}}"/>
@@ -60,9 +69,9 @@ Search - AIS
                         <img class="card-img-top" src="{% static 'images/placeholder.jpg' %}" alt="{{product.name}}"/>
                     {% endif %}
                 </a>
-                <div class="card-body">
-                    <h4>{{product.name}}</h4>
-                    <p>€{{product.price}}</p>
+                <div class="card-body" style="text-wrap: nowrap; overflow: hidden;">
+                    <h4>{{ product.name|truncatechars:30 }}</h4>
+                    <p>€{{ product.price }}</p>
                 </div>
             </div>
         </div>

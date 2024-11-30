@@ -21,6 +21,7 @@
 - [Dmytro Zubal](https://github.com/dmytrozubal)
   - Shop app
   - Products database population
+  - Search app
   - ...
 
 # Deelopment notes:
