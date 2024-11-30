@@ -23,6 +23,7 @@
   - Products database population
   - Search app
   - Cart app
+  - Stripe integration
   - ...
 
 # Deelopment notes:

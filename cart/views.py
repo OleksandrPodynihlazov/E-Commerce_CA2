@@ -75,7 +75,7 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
                         "price_data": {
                             "currency": "eur",
                             "product_data": {
-                                "name": "Order from Perfect Cushion Shop",
+                                "name": "Order from Automatic Irrigation Systems",
                             },
                             "unit_amount": stripe_total,
                         },
@@ -87,8 +87,8 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
                 shipping_address_collection={},
                 payment_intent_data={"description": description},
                 # success_url=request.build_absolute_uri(reverse('shop:all_products')),
-                success_url=request.build_absolute_uri(reverse("cart:new_order"))
-                + f"?session_id={{CHECKOUT_SESSION_ID}}&voucher_id={voucher_id}&cart_total={total}",
+                success_url=request.build_absolute_uri(reverse("shop:cat_list")),
+                # + f"?session_id={{CHECKOUT_SESSION_ID}}&voucher_id={voucher_id}&cart_total={total}",
                 cancel_url=request.build_absolute_uri(reverse("cart:cart_detail")),
             )
             return redirect(checkout_session.url, code=303)
@@ -112,9 +112,9 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
             "total": total,
             "counter": counter,
             # "voucher_apply_form": voucher_apply_form,
-            "new_total": new_total,
-            "voucher": voucher,
-            "discount": discount,
+            # "new_total": new_total,
+            # "voucher": voucher,
+            # "discount": discount,
         },
     )
 
@@ -145,7 +145,6 @@ def empty_cart(request):
         cart_items = CartItem.objects.filter(cart=cart, active=True)
         cart_items.delete()
         cart.delete()
-        return redirect("shop:cat_list")
     except Cart.DoesNotExist:
         pass
     return redirect("cart:cart_detail")

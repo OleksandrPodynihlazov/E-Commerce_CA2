@@ -238,7 +238,14 @@ html, body {
 	font-weight: normal;
 	text-transform: uppercase;
 	letter-spacing: .2em;
+    font-size: large;
 	background-color: #e9edf1 !important;
+    padding-top: 0.7em !important;
+    padding-bottom: 0.7em !important;
+}
+
+.cart-thead a {
+    margin-left: 10rem !important;
 }
 
 .cart-table {
@@ -247,7 +254,7 @@ html, body {
 }
 
 .title {
-	font-size: 16px;
+	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: .2em;
 }
@@ -262,4 +269,10 @@ html, body {
 	text-decoration: none;
 	width: 100%;
 	margin-bottom: 10px;
+}
+
+.clear-cart {
+    padding: 0 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
 }

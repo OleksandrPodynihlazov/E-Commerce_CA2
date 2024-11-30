@@ -27,7 +27,7 @@ This is the shopping cart page. Proceed to review your items and place the order
                 <table class="table cart-table">
                     <thead class="cart-thead">
                         <tr>
-                            <th colspan="5">Your items</th>
+                            <th colspan="5">Your items <a href="{% url 'cart:empty_cart' %}" class="btn btn-sm btn-outline-danger clear-cart">Clear Cart</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,7 +48,6 @@ This is the shopping cart page. Proceed to review your items and place the order
                                 <hr>
                                 <b>Subtotal: €{{cart_item.sub_total}}</b>
                             </td>
-                            {% comment %} <td>€{{cart_item.sub_total}}</td> {% endcomment %}
                             {% if cart_item.quantity < cart_item.product.stock %}
                                 <td>
                                     <a href="{% url 'cart:add_cart' cart_item.product.id %}" class="cart-a"><i class="fas fa-plus-circle cart-icon"></i></a>&nbsp;
