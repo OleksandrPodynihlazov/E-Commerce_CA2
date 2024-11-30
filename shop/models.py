@@ -52,6 +52,25 @@ class ControlMechanism(models.Model):
     def __str__(self):
         return self.name
 
+class Brand(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
+    name = models.CharField(max_length=250, unique=True)
+    country = models.CharField(max_length=250)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'brand'
+        verbose_name_plural = 'brands'
+
+    def get_absolute_url(self):
+        return reverse('shop:products_by_brand', args=[self.id])
+
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -59,7 +78,7 @@ class Product(models.Model):
         editable=False
     )
     name = models.CharField(max_length=250, unique=True)
-    brand = models.CharField(max_length=250)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     description = models.TextField(blank = True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     control_mechanism = models.ForeignKey(ControlMechanism, on_delete=models.CASCADE)
