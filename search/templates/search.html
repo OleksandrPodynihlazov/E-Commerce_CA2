@@ -7,22 +7,58 @@ Find a perfect irrigation solution for your soil
 Search - AIS
 {%endblock %} 
 {% block content %}
-<div>
-    <p class="text-center my_search_text">
-        You have searched for: <b>"{{ query }}"</b>
-    </p>
-</div>
-<div class="container">
+<div class="container-fluid p-4">
+    <form method="GET" action=".">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label for="name">Name:</label>
+                <input class="form-control py-2 border-right-0 border" id="name" type="search" name="name" placeholder="Name..." value="{{ request.GET.name }}">
+            </div>        
+        </div>
+        <div class="form-row row">
+            <div class="form-group col-md-2">
+                <label for="minPrice">Min Price:</label>
+                <input type="number" min="{{ lower_price }}" class="form-control" id="minPrice" placeholder="{{ lower_price }}" name="minPrice" value="{{ request.GET.minPrice }}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="maxPrice">Max Price:</label>
+                <input type="number" min="{{ lower_price }}" max="{{ upper_price }}" class="form-control" id="maxPrice" placeholder="{{ upper_price }}" name="maxPrice" value="{{ request.GET.maxPrice }}">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="category">Category:</label>
+                <select id="category" class="form-control" name="category">
+                    <option value="">Show All</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.name }}" {% if request.GET.category == cat.name %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="brand">Brand:</label>
+                <select id="brand" class="form-control" name="brand">
+                    <option value="">Show All</option>
+                    {% for brand in brands %}
+                        <option value="{{ brand.name }}" {% if request.GET.brand == brand.name %}selected{% endif %}>{{ brand }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2 align-self-end">
+                <input type="submit" class="btn btn-primary w-100" value="Search">
+            </div>
+        </div>
+    </form>
+    <br>
+    <hr>
     <div class="row mx-auto">
-        {% for product in product_list %}
-        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md- 12 col-lg-4" >
+        {% for product in queryset %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="card text-center" style="min-width: 18rem">
                 <a href="{{product.get_absolute_url}}">
-                    <img
-                        class="card-img-top my_image"
-                        src="{{product.image.url}}"
-                        alt="{{product.name}}"
-                    />
+                    {% if product.image %}
+                        <img class="card-img-top" src="{{product.image.url}}" alt="{{product.name}}"/>
+                    {% else %}
+                        <img class="card-img-top" src="{% static 'images/placeholder.jpg' %}" alt="{{product.name}}"/>
+                    {% endif %}
                 </a>
                 <div class="card-body">
                     <h4>{{product.name}}</h4>
