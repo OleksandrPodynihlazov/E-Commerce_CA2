@@ -145,7 +145,6 @@ def empty_cart(request):
         cart_items = CartItem.objects.filter(cart=cart, active=True)
         cart_items.delete()
         cart.delete()
-        return redirect("shop:cat_list")
     except Cart.DoesNotExist:
         pass
     return redirect("cart:cart_detail")
