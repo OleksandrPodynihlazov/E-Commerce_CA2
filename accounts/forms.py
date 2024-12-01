@@ -13,3 +13,11 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username','email','age',)
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username','email','age',]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ request.user.username }}'s Profile</h2>
+<p>Age: {{ request.user.age }}</p>
+<p>Email: {{ request.user.email }}</p>
+<br>
+
+<!-- Button to edit profile -->
+<a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+{% endblock %}

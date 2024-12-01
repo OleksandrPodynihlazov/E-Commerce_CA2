@@ -1,8 +1,9 @@
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UserProfileForm
 from .models import CustomUser
 
 class SignUpView(CreateView):
@@ -20,5 +21,24 @@ class SignUpView(CreateView):
         # Log the user in after signup
         login(self.request, self.object)
         return response # Redirect to success URL
+    
+def edit_profile(request):
+    user = request.user  # Тепер ми редагуємо дані користувача
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user)  # Передаємо користувача
+        if form.is_valid():
+            form.save()  # Зберігаємо зміни в CustomUser
+            return redirect('accounts:profile')  # Після збереження редірект на профіль
+        else:
+            # Якщо форма не валідна, вивести помилки
+            print(form.errors)
+    else:
+        form = UserProfileForm(instance=user)  # Завантажуємо форму з даними користувача
+
+    return render(request, 'accounts/edit_profile.html', {'form': form})
+
+def profile_view(request):
+    profile = request.user.profile  # Тепер це працює
+    return render(request, 'accounts/profile.html', {'profile': profile})
 
 
