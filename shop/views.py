@@ -8,9 +8,10 @@ def prod_list(request, category_name=None):
 
     if category_name:
         category = get_object_or_404(Category, slug=category_name)
-        products = Product.objects.filter(category=category, available=True)
+        if category_name != 'all':
+            products = Product.objects.filter(category=category, available=True)
 
-    paginator = Paginator(products, 6)
+    paginator = Paginator(products, 16)
     try:
         page = int(request.GET.get('page', '1'))
     except:
@@ -25,8 +26,9 @@ def prod_list(request, category_name=None):
 
 def cat_list(request):
     categories = Category.objects.all()
+    categories = sorted(categories, key=lambda x: len(x.name))
     return render(request, 'shop/categories.html', {'category':categories})
 
-def product_detail(request, category_id, product_id):
-    product = get_object_or_404(Product, category_id=category_id, id=product_id)
+def product_detail(request, category_name, product_id):
+    product = get_object_or_404(Product, id=product_id)
     return render(request, 'shop/product.html', {'product':product})

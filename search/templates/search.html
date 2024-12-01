@@ -1,0 +1,113 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block metadescription %} 
+Find a perfect irrigation solution for your soil
+{% endblock %} 
+{% block title %} 
+Search - AIS
+{%endblock %} 
+{% block content %}
+<div class="container-fluid p-4">
+    <form method="GET" action=".">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label for="name">Name:</label>
+                <input class="form-control py-2 border-right-0 border" id="name" type="search" name="name" placeholder="Name..." value="{{ request.GET.name }}">
+            </div>        
+        </div>
+        <div class="form-row row">
+            <div class="form-group col-md-2">
+                <label for="minPrice">Min Price:</label>
+                <input type="number" min="{{ context.lower_price }}" class="form-control" id="minPrice" placeholder="{{ context.lower_price }}" name="minPrice" value="{{ request.GET.minPrice }}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="maxPrice">Max Price:</label>
+                <input type="number" min="{{ context.lower_price }}" max="{{ context.upper_price }}" class="form-control" id="maxPrice" placeholder="{{ context.upper_price }}" name="maxPrice" value="{{ request.GET.maxPrice }}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="category">Category:</label>
+                <select id="category" class="form-control" name="category">
+                    <option value="">Show All</option>
+                    {% for cat in context.categories %}
+                        <option value="{{ cat.name }}" {% if request.GET.category == cat.name %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="brand">Brand:</label>
+                <select id="brand" class="form-control" name="brand">
+                    <option value="">Show All</option>
+                    {% for brand in context.brands %}
+                        <option value="{{ brand.name }}" {% if request.GET.brand == brand.name %}selected{% endif %}>{{ brand }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="control">Control:</label>
+                <select id="control" class="form-control" name="control">
+                    <option value="">Show All</option>
+                    {% for control in context.controls %}
+                        <option value="{{ control.name }}" {% if request.GET.control == control.name %}selected{% endif %}>{{ control }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2 align-self-end">
+                <input type="submit" class="btn btn-primary w-100" value="Search">
+            </div>
+        </div>
+    </form>
+    <br>
+    <hr>
+    <div class="row mx-auto">
+        {% for product in prods %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card text-center fixed-size-card" style="max-height: 25rem;">
+                <a href="{{product.get_absolute_url}}">
+                    {% if product.image %}
+                        <img class="card-img-top" src="{{product.image.url}}" alt="{{product.name}}"/>
+                    {% else %}
+                        <img class="card-img-top" src="{% static 'images/placeholder.jpg' %}" alt="{{product.name}}"/>
+                    {% endif %}
+                </a>
+                <div class="card-body" style="text-wrap: nowrap; overflow: hidden;">
+                    <h4>{{ product.name|truncatechars:30 }}</h4>
+                    <p>€{{ product.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row mx-auto">
+            <p class="text-center my_search_text">0 results found.</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if prods.paginator.num_pages > 1 %}
+            <hr>
+            <div class="text-center">
+                {% comment %} Improved page navigation {% endcomment %}
+                {% comment %} https://docs.djangoproject.com/en/5.1/topics/pagination/ {% endcomment %}
+                {% if prods.has_previous %}
+                    <a href="?page=1" class="btn btn-light btn-sm"><<</a>
+                {% endif %}
+
+                {% if prods.has_previous %}
+                    <a href="?page={{ prods.previous_page_number }}" class="btn btn-light btn-sm"><</a>
+                {% endif %}
+
+                {% for pg in prods.paginator.page_range %}
+                    <a href="?page={{ pg }}" class="btn btn-light btn-sm {% if prods.number == pg %}active{% endif %}">{{ pg }}</a>
+                {% endfor %}
+
+                {% if prods.has_next %}
+                    <a href="?page={{ prods.next_page_number }}" class="btn btn-light btn-sm">></a>
+                {% endif %}
+
+                {% if prods.has_next %}
+                    <a href="?page={{ prods.paginator.num_pages }}" class="btn btn-light btn-sm">>></a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

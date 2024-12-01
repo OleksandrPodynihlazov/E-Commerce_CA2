@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, ControlMechanism
+from .models import Category, Product, ControlMechanism, Brand
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
@@ -11,8 +11,13 @@ class ControlMechanismAdmin(admin.ModelAdmin):
 
 admin.site.register(ControlMechanism, ControlMechanismAdmin)
 
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Brand, BrandAdmin)
+
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'description', 'category', 'control_mechanism', 'stock', 'available', 'created', 'updated']
+    list_display = ['name', 'price', 'brand', 'category', 'control_mechanism', 'stock', 'available', 'created', 'updated']
     list_editable = ['price', 'stock', 'available']
     list_per_page = 20
 
