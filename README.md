@@ -19,6 +19,8 @@
   - Change and reset password
   - User Profile
   - Support app
+  - Vouchers app
+  - Orders app
   - ...
 
 - [Dmytro Zubal](https://github.com/dmytrozubal)
