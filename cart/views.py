@@ -6,9 +6,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from shop.models import Product
 from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
-# from order.models import Order, OrderItem
-# from vouchers.models import Voucher
-# from vouchers.forms import VoucherApplyForm
+from order.models import Order, OrderItem
+from vouchers.models import Voucher
+from vouchers.forms import VoucherApplyForm
 from decimal import Decimal
 
 
@@ -53,18 +53,18 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     stripe_total = int(total * 100)
     description = "Online Shop - New Order"
-    # voucher_apply_form = VoucherApplyForm()
+    voucher_apply_form = VoucherApplyForm()
 
-    # try:
-    #     voucher_id = request.session.get("voucher_id")
-    #     voucher = Voucher.objects.get(id=voucher_id)
-    #     if voucher != None:
-    #         discount = total * (voucher.discount / Decimal("100"))
-    #         new_total = total - discount
-    #         stripe_total = int(new_total * 100)
-    # except:
-    #     ObjectDoesNotExist
-    #     pass
+    try:
+        voucher_id = request.session.get("voucher_id")
+        voucher = Voucher.objects.get(id=voucher_id)
+        if voucher != None:
+            discount = total * (voucher.discount / Decimal("100"))
+            new_total = total - discount
+            stripe_total = int(new_total * 100)
+    except:
+        ObjectDoesNotExist
+        pass
 
     if request.method == "POST":
         try:
@@ -87,8 +87,7 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
                 shipping_address_collection={},
                 payment_intent_data={"description": description},
                 # success_url=request.build_absolute_uri(reverse('shop:all_products')),
-                success_url=request.build_absolute_uri(reverse("shop:cat_list")),
-                # + f"?session_id={{CHECKOUT_SESSION_ID}}&voucher_id={voucher_id}&cart_total={total}",
+                success_url=request.build_absolute_uri(reverse("cart:new_order")) + f"?session_id={{CHECKOUT_SESSION_ID}}&voucher_id={voucher_id}&cart_total={total}",
                 cancel_url=request.build_absolute_uri(reverse("cart:cart_detail")),
             )
             return redirect(checkout_session.url, code=303)
@@ -111,10 +110,10 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
             "cart_items": cart_items,
             "total": total,
             "counter": counter,
-            # "voucher_apply_form": voucher_apply_form,
-            # "new_total": new_total,
-            # "voucher": voucher,
-            # "discount": discount,
+            "voucher_apply_form": voucher_apply_form,
+            "new_total": new_total,
+            "voucher": voucher,
+            "discount": discount,
         },
     )
 
@@ -150,98 +149,98 @@ def empty_cart(request):
     return redirect("cart:cart_detail")
 
 
-# def create_order(request):
-#     try:
-#         session_id = request.GET.get("session_id")
-#         cart_total = request.GET.get("cart_total")
-#         voucher_id = request.GET.get("voucher_id")
-#         if not session_id:
-#             raise ValueError("Session ID not found.")
+def create_order(request):
+    try:
+        session_id = request.GET.get("session_id")
+        cart_total = request.GET.get("cart_total")
+        voucher_id = request.GET.get("voucher_id")
+        if not session_id:
+            raise ValueError("Session ID not found.")
 
-#         try:
-#             session = stripe.checkout.Session.retrieve(session_id)
-#         except StripeError as e:
-#             return redirect("shop:all_products")
+        try:
+            session = stripe.checkout.Session.retrieve(session_id)
+        except StripeError as e:
+            return redirect("shop:all_products")
 
-#         customer_details = session.customer_details
-#         if not customer_details or not customer_details.address:
-#             raise ValueError("Missing information in the Stripe session.")
+        customer_details = session.customer_details
+        if not customer_details or not customer_details.address:
+            raise ValueError("Missing information in the Stripe session.")
 
-#         billing_address = customer_details.address
-#         billing_name = customer_details.name
-#         shipping_address = customer_details.address
-#         shipping_name = customer_details.name
+        billing_address = customer_details.address
+        billing_name = customer_details.name
+        shipping_address = customer_details.address
+        shipping_name = customer_details.name
 
-#         try:
-#             order_details = Order.objects.create(
-#                 token=session.id,
-#                 total=session.amount_total / 100,  # Convert cents to currency units
-#                 emailAddress=customer_details.email,
-#                 billingName=billing_name,
-#                 billingAddress1=billing_address.line1,
-#                 billingCity=billing_address.city,
-#                 billingPostcode=billing_address.postal_code,
-#                 billingCountry=billing_address.country,
-#                 shippingName=shipping_name,
-#                 shippingAddress1=shipping_address.line1,
-#                 shippingCity=shipping_address.city,
-#                 shippingPostcode=shipping_address.postal_code,
-#                 shippingCountry=shipping_address.country,
-#             )
-#             order_details.save()
-#         except Exception as e:
-#             print(f"Error: {e}")
-#             return redirect("shop:cat_list")
+        try:
+            order_details = Order.objects.create(
+                token=session.id,
+                total=session.amount_total / 100,  # Convert cents to currency units
+                emailAddress=customer_details.email,
+                billingName=billing_name,
+                billingAddress1=billing_address.line1,
+                billingCity=billing_address.city,
+                billingPostcode=billing_address.postal_code,
+                billingCountry=billing_address.country,
+                shippingName=shipping_name,
+                shippingAddress1=shipping_address.line1,
+                shippingCity=shipping_address.city,
+                shippingPostcode=shipping_address.postal_code,
+                shippingCountry=shipping_address.country,
+            )
+            order_details.save()
+        except Exception as e:
+            print(f"Error: {e}")
+            return redirect("shop:cat_list")
 
-#         try:
-#             cart = Cart.objects.get(cart_id=_cart_id(request))
-#             cart_items = CartItem.objects.filter(cart=cart, active=True)
-#         except ObjectDoesNotExist:
-#             return redirect("shop:cat_list")
-#         except Exception as e:
-#             print(f"Error: {e}")
-#             return redirect("shop:cat_list")
+        try:
+            cart = Cart.objects.get(cart_id=_cart_id(request))
+            cart_items = CartItem.objects.filter(cart=cart, active=True)
+        except ObjectDoesNotExist:
+            return redirect("shop:cat_list")
+        except Exception as e:
+            print(f"Error: {e}")
+            return redirect("shop:cat_list")
         
-#         voucher = get_object_or_404(Voucher, id=voucher_id)
-#         if voucher != None:
-#             order_details.voucher = voucher
-#             cart_total = Decimal(cart_total)
-#             order_details.discount = cart_total*(voucher.discount/Decimal('100'))
-#             order_details.total = (cart_total-order_details.discount)
-#             order_details.save()
+        voucher = get_object_or_404(Voucher, id=voucher_id)
+        if voucher != None:
+            order_details.voucher = voucher
+            cart_total = Decimal(cart_total)
+            order_details.discount = cart_total*(voucher.discount/Decimal('100'))
+            order_details.total = (cart_total-order_details.discount)
+            order_details.save()
 
-#         for item in cart_items:
-#             try:
-#                 oi = OrderItem.objects.create(
-#                     product=item.product.name,
-#                     quantity=item.quantity,
-#                     price=item.product.price,
-#                     order=order_details,
-#                 )
-#                 oi.save()
-#                 """Reduce stock when order is placed or saved"""
-#                 product = Product.objects.get(id=item.product.id)
-#                 product.stock = int(item.product.stock - item.quantity)
-#                 product.save()
-#                 if voucher != None:
-#                     discount = (oi.price*(voucher.discount/Decimal('100')))
-#                     oi.price = (oi.price - discount)
-#                 else:
-#                     oi.price = oi.price*oi.quantity
-#                 oi.save()
-#                 empty_cart(request)
-#             except Exception as e:
-#                 return redirect("shop:cat_list")
-#         return redirect("order:thanks", order_details.id)
+        for item in cart_items:
+            try:
+                oi = OrderItem.objects.create(
+                    product=item.product.name,
+                    quantity=item.quantity,
+                    price=item.product.price,
+                    order=order_details,
+                )
+                oi.save()
+                """Reduce stock when order is placed or saved"""
+                product = Product.objects.get(id=item.product.id)
+                product.stock = int(item.product.stock - item.quantity)
+                product.save()
+                if voucher != None:
+                    discount = (oi.price*(voucher.discount/Decimal('100')))
+                    oi.price = (oi.price - discount)
+                else:
+                    oi.price = oi.price*oi.quantity
+                oi.save()
+                empty_cart(request)
+            except Exception as e:
+                return redirect("shop:cat_list")
+        return redirect("order:thanks", order_details.id)
 
-#     except ValueError as ve:
-#         print(f"Error: {ve}")
-#         return redirect("shop:cat_list")
+    except ValueError as ve:
+        print(f"Error: {ve}")
+        return redirect("shop:cat_list")
 
-#     except StripeError as se:
-#         print(f"Stripe Error: {se}")
-#         return redirect("shop:cat_list")
+    except StripeError as se:
+        print(f"Stripe Error: {se}")
+        return redirect("shop:cat_list")
 
-#     except Exception as e:
-#         print(f"Unexpected error: {e}")
-#         return redirect("shop:cat_list")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return redirect("shop:cat_list")
