@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>{{ request.user.username }}'s Profile</h2>
-<p>Age: {{ request.user.age }}</p>
-<p>Email: {{ request.user.email }}</p>
-<br>
-
-<!-- Button to edit profile -->
-<a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0 text-center">{{ request.user.username }}'s Profile</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Age:</strong> {{ request.user.age }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
