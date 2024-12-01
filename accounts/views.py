@@ -20,3 +20,5 @@ class SignUpView(CreateView):
         # Log the user in after signup
         login(self.request, self.object)
         return response # Redirect to success URL
+
+
