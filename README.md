@@ -10,7 +10,7 @@
 | Username | Password | Role  |
 |:--------:|:--------:|:-----:|
 | admin    | admin    | SuperUser |
-| user     | user     | User  |
+| user     | TestUserAccount     | Customer  |
 
 ## Assignment Development Breakdown:
 - [Oleksandr Podynihlazov](https://github.com/OleksandrPodynihlazov)
