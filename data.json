@@ -3243,7 +3243,7 @@
         }
     },
     {
-        "model": "auth.user",
+        "model": "accounts.customuser",
         "fields": {
             "password": "pbkdf2_sha256$870000$3mJKUBv3qNbGvnsiVu20Xb$DO10nH9TlxvIsXWNZnpZ0RX/538cbUY0ZM50MFm87Ag=",
             "last_login": "2024-11-30T02:15:28.063Z",
