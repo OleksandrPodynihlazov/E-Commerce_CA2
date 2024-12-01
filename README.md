@@ -16,6 +16,9 @@
 - [Oleksandr Podynihlazov](https://github.com/OleksandrPodynihlazov)
   - Data scraping for products
   - Accounts
+  - Change and reset password
+  - User Profile
+  - Support app
   - ...
 
 - [Dmytro Zubal](https://github.com/dmytrozubal)

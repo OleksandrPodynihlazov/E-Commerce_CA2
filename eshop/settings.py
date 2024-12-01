@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'accounts',
     'search',
     'cart',
+    'support',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'eshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath("templates"))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,9 +138,13 @@ MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = 'shop:cat_list'
+LOGOUT_REDIRECT_URL = 'shop:cat_list'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 STRIPE_SECRET_KEY = 'sk_test_51LxFLJIR55PUH4EAorGv70V00xPsSD1BkYKnBHewKxUwILy3ngT5IL0NzfFMgwTlGB2TLJDtWaWaMfKBzx5M2tpH00CvexXPYX'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51LxFLJIR55PUH4EAlXZYMUbPSDN7anaTaIT8WC2tM0oCW5ZWE5CoTMQg2dXfTotjlt2NXtAlufEgBUsPHJXIOXUJ00ETvQ5jgV'

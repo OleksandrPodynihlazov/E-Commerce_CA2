@@ -1,31 +1,70 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
+  <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Shop
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'shop:cat_list' %}">Home</a></li>
-                {% for cat in links %}
-                  <li><a class="dropdown-item" href="{{cat.get_absolute_url}}">{{cat.name}}</a></li>
-                {% endfor %}
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="{% url 'cart:cart_detail' %}">
-                  <i class="fas fa-shopping-cart"> ( {{item_count}} )</i>
-            </a>
-          </li>
-        </ul>
-        <form class="d-flex search" action="{% url 'search:searchResult' %}" method="get">
-          <input class="form-control me-2 bg-dark text-light" type="search" placeholder="Search" aria-label="Search" name="name">
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-        </form>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!-- Shop Dropdown -->
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Shop
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'shop:cat_list' %}">Home</a></li>
+                      {% for cat in links %}
+                          <li><a class="dropdown-item" href="{{cat.get_absolute_url}}">{{cat.name}}</a></li>
+                      {% endfor %}
+                  </ul>
+              </li>
+              <!-- Cart -->
+              <li class="nav-item">
+                  <a class="nav-link text-light" href="{% url 'cart:cart_detail' %}">
+                      <i class="fas fa-shopping-cart"> ( {{item_count}} )</i>
+                  </a>
+              </li>
+          </ul>
+          <!-- Search Form -->
+          <form class="d-flex search" action="{% url 'search:searchResult' %}" method="get">
+              <input class="form-control me-2 bg-dark text-light" type="search" placeholder="Search" aria-label="Search" name="name">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <!-- User Menu -->
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Welcome, {{ user.username }} <i class="fas fa-user-circle"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <!-- Sign out form -->
+                        <li>
+                            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item" style="border: none; background: none;">
+                                    Sign Out <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li><a href="{% url 'accounts:profile' %}" class="dropdown-item">View Profile</a></li>
+                        <li><a href="{% url 'password_change' %}" class="dropdown-item">Change Password</a></li>
+                        {% comment "" %}<li><a href="{% url 'order:order_history' %}" class="dropdown-item">Order History</a></li>{% endcomment %}
+                    </ul>
+                    
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link text-light" href="{% url 'accounts:signup' %}">
+                          Sign Up <i class="fas fa-user-plus"></i>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-light" href="{% url 'login' %}">
+                          Sign In <i class="fas fa-sign-in"></i>
+                      </a>
+                  </li>
+              {% endif %}
+          </ul>
       </div>
-    </div>
-  </nav>
+  </div>
+</nav>
