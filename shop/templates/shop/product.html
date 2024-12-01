@@ -7,7 +7,7 @@
     {{ product.name }} - Perfect Cushion Store
 {% endblock %}
 {% block content %}
-    <div class="row my_prod_row_class">
+    <div class="row prod-row">
         <div class="mx-auto">
             <p><a href="{% url 'shop:cat_list' %}">Home</a> | <a href="{{product.category.get_absolute_url }}">{{product.category}}</a> | 
             {{product.name}}</p>
@@ -39,8 +39,10 @@
                         {% endif %}
                     </div>
                 </div>
-                {% comment %} <p class="description text-justify"><b>Description:</b></p> {% endcomment %}
-                <div class="description text-justify">{{ product.description|safe }}</div>
+                <h3 class="description"><b>Description:</b></h3>
+                <div class="col-12">
+                    <div class="description">{{ product.description|safe }}</div>
+                </div>
             </div>
         </div>
     </div>
