@@ -9,7 +9,7 @@ class SignUpView(CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
     template_name = 'registration/signup.html'
-    success_url = reverse_lazy('shop:all_products')
+    success_url = reverse_lazy('shop:cat_list')
     
     def form_valid(self, form):
         # Save the new user
