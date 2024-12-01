@@ -49,5 +49,5 @@ python manage.py loaddata data.json
 
 ### Dump database:
 ```bash
-python manage.py dumpdata --natural-foreign --natural-primary > data.json
+python manage.py dumpdata --natural-foreign --natural-primary --indent 4 > data.json
 ```

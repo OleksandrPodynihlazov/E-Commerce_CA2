@@ -7,7 +7,7 @@ html, body {
 
 .container-fluid {
     padding: 0 !important;
-    flex: 1;
+    width: 100%;
 }
 
 .container {
@@ -20,8 +20,9 @@ html, body {
 }
 
 .description {
+    width: 100vh !important;
     padding-left: 2rem !important;
-    padding-right: 2rem !important;
+    padding-right: 0 !important;
 }
 
 .description .text {
@@ -275,6 +276,24 @@ html, body {
     padding: 0 !important;
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
+}
+
+.prod-row {
+	padding-top: 15px;
+	padding-bottom: 20px;
+    width: 100%;
+}
+
+.prod-row .mx-auto p {
+	color: #000;
+	font-size: 12px;
+    padding-left: 1rem;
+}
+
+.prod-row .mx-auto p a {
+	color: #000;
+	font-size: 12px;
+	text-decoration: none;
 }
 
 .chat-button {
