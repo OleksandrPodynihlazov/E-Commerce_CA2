@@ -6,11 +6,20 @@
 ## Website URL:
 - [Automated Irrigation Systems E-Shopping Website]()
 
-## Usernames and Passwords:
-| Username | Password | Role  |
-|:--------:|:--------:|:-----:|
-| admin    | admin    | SuperUser |
-| user     | TestUserAccount     | Customer  |
+## Test Data:
+| Username | Password | Role  | email |
+|:--------:|:--------:|:-----:|:-----:|
+| admin    | admin    | SuperUser | - |
+| user     | TestUserAccount     | Customer  | user@example.com |
+
+| Card Number | Date | CVV |
+|:-----------:|:----:|:---:|
+| 4242 4242 4242 4242 | 02/42 | 242 |
+
+| Voucher Code | Discount |
+|:------------:|:--------:|
+| CA2          | 25%      |
+
 
 ## Assignment Development Breakdown:
 - [Oleksandr Podynihlazov](https://github.com/OleksandrPodynihlazov)
@@ -31,7 +40,7 @@
   - Stripe integration
   - ...
 
-# Deelopment notes:
+# Development notes:
 ### Init:
 ```bash
 python3 -m venv env
