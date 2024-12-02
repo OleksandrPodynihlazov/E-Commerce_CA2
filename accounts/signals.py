@@ -5,12 +5,10 @@ from .models import CustomUser, Profile
 @receiver(post_save, sender=CustomUser)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
-        # Створюємо профіль для нового користувача
         Profile.objects.create(user=instance)
     else:
-        # Зберігаємо профіль, якщо користувач оновлений
         instance.profile.save()
-        
+
 @receiver(post_save, sender=CustomUser)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()

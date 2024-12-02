@@ -13,7 +13,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE, 
         related_name='profile'
     )
-    # Додайте інші поля для профілю, якщо потрібно
+
 
     def __str__(self):
         return f"{self.user.username}'s profile"

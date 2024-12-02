@@ -23,22 +23,22 @@ class SignUpView(CreateView):
         return response # Redirect to success URL
     
 def edit_profile(request):
-    user = request.user  # Тепер ми редагуємо дані користувача
+    user = request.user  
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=user)  # Передаємо користувача
+        form = UserProfileForm(request.POST, request.FILES, instance=user)  
         if form.is_valid():
-            form.save()  # Зберігаємо зміни в CustomUser
-            return redirect('accounts:profile')  # Після збереження редірект на профіль
+            form.save() 
+            return redirect('accounts:profile') 
         else:
-            # Якщо форма не валідна, вивести помилки
+            
             print(form.errors)
     else:
-        form = UserProfileForm(instance=user)  # Завантажуємо форму з даними користувача
+        form = UserProfileForm(instance=user)
 
     return render(request, 'accounts/edit_profile.html', {'form': form})
 
 def profile_view(request):
-    profile = request.user.profile  # Тепер це працює
+    profile = request.user.profile
     return render(request, 'accounts/profile.html', {'profile': profile})
 
 
