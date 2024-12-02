@@ -12,3 +12,11 @@ search/__pycache__/
 cart/migrations/*_*.py
 cart/migrations/__pycache__/
 cart/__pycache__/
+
+order/migrations/*_*.py
+order/migrations/__pycache__/
+order/__pycache__/
+
+voucher/migrations/*_*.py
+voucher/migrations/__pycache__/
+voucher/__pycache__/
