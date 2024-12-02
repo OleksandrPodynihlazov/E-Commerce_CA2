@@ -4,7 +4,7 @@
 - [Dmytro Zuba (X00225759)](https://github.com/dmytrozubal)
 
 ## Website URL:
-- [Automated Irrigation Systems E-Shopping Website](exclmark.pythonanywhere.com)
+- [Automated Irrigation Systems E-Shopping Website](https://exclmark.pythonanywhere.com)
 
 ## Test Data:
 | Username | Password | Role  | email |
