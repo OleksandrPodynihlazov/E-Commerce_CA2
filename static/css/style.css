@@ -260,7 +260,7 @@ html, body {
 	letter-spacing: .2em;
 }
 
-.stripe-btn {
+.stripe-btn, .voucher-btn {
 	background-color: #6772e5 !Important;
 	color: white;
 	font-size: 16px;
@@ -270,6 +270,23 @@ html, body {
 	text-decoration: none;
 	width: 100%;
 	margin-bottom: 10px;
+}
+
+.voucher-btn {
+    width: 20%;
+    margin-left: 2rem !important;
+}
+
+.mr-2 label {
+    width: 100%;
+    display: none;
+}
+
+.mr-2 input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
 }
 
 .clear-cart {
