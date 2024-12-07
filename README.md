@@ -1,24 +1,14 @@
-# Automated Irrigation Systems E-Shopping Website (CA2)
+# Automated Irrigation Systems E-Shopping Website. University Project
+
+##Project Overview
+
+This project is a university assignment to develop an e-commerce website specializing in automated irrigation systems.
+The platform includes features such as user authentication, product management, order processing, and payment integration.
+
 ## Team Members:
-- [Oleksandr Podynihlazov (X00215403)](https://github.com/OleksandrPodynihlazov)
-- [Dmytro Zuba (X00225759)](https://github.com/dmytrozubal)
+- [Oleksandr Podynihlazov ](https://github.com/OleksandrPodynihlazov)
+- [Dmytro Zubal ](https://github.com/dmytrozubal)
 
-## Website URL:
-- [Automated Irrigation Systems E-Shopping Website](https://exclmark.pythonanywhere.com)
-
-## Test Data:
-| Username | Password | Role  | email |
-|:--------:|:--------:|:-----:|:-----:|
-| admin    | admin    | SuperUser | - |
-| user     | TestUserAccount     | Customer  | user@example.com |
-
-| Card Number | Date | CVV |
-|:-----------:|:----:|:---:|
-| 4242 4242 4242 4242 | 02/42 | 242 |
-
-| Voucher Code | Discount |
-|:------------:|:--------:|
-| CA2          | 25%      |
 
 
 ## Assignment Development Breakdown:
@@ -39,25 +29,12 @@
   - Stripe integration
   - Deploy
 
-# Development notes:
-### Init:
-```bash
-python3 -m venv env
-source env/bin/activate   # For Linux
-env\Scripts\activate      # For Windows
+##Tech Stack
 
-pip install -r requirements.txt
+    Backend: Django
+    Frontend: HTML, CSS, JavaScript
+    Database: SQLite
+    Payment Gateway: Stripe
+    Deployment Platform: PythonAnywhere
 
-python manage.py makemigrations
-python manage.py migrate
-```
 
-### Load database:
-```bash
-python manage.py loaddata data.json
-```
-
-### Dump database:
-```bash
-python manage.py dumpdata --natural-foreign --natural-primary --indent 4 > data.json
-```
