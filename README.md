@@ -1,6 +1,6 @@
 # Automated Irrigation Systems E-Shopping Website. University Project
 
-##Project Overview
+## Project Overview
 
 This project is a university assignment to develop an e-commerce website specializing in automated irrigation systems.
 The platform includes features such as user authentication, product management, order processing, and payment integration.
@@ -29,7 +29,7 @@ The platform includes features such as user authentication, product management, 
   - Stripe integration
   - Deploy
 
-##Tech Stack
+## Tech Stack
 
     Backend: Django
     Frontend: HTML, CSS, JavaScript
